@@ -1,6 +1,9 @@
 #include "DtxApp.h"
 #include <clib/exec_protos.h>
 
+#include "DtxWindow.h"
+#include "DtxMesh.h"
+
 DtxApp::DtxApp()
     : mpDtxWindows{}
 {
@@ -31,6 +34,11 @@ DtxWindow *DtxApp::AddWindow(const std::string& title)
 {
     DtxRect dtxRect{ 0, 0, 320, 240 };
     return AddWindow(title, dtxRect);
+}
+
+void DtxApp::AddMesh(DtxMesh *pMesh)
+{
+    mpMeshes.emplace_back(pMesh);
 }
 
 void DtxApp::Loop()
