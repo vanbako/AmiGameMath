@@ -1,6 +1,6 @@
 #include "../Shared/DtxLibs.h"
-#include "../Shared/DtxApp.h"
 #include "../Shared/DtxWindow.h"
+#include "DtxApp.h"
 #include <string>
 #include <vector>
 

@@ -1,5 +1,5 @@
 #include "DtxMesh.h"
-#include "DtxWindow.h"
+#include "../Shared/DtxWindow.h"
 
 DtxMesh::DtxMesh()
 	: mVertices{}

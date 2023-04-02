@@ -1,7 +1,7 @@
-#include "DtxOrtho.h"
+#include "DtxObjectToWorld.h"
 #include "../Shared/DtxWindow.h"
 
-DtxOrtho::DtxOrtho()
+DtxObjectToWorld::DtxObjectToWorld()
     : mDtxLibs{}
     , mDtxApp{}
     , mDtxCylinder{ 75.f, 200.f }
@@ -10,13 +10,13 @@ DtxOrtho::DtxOrtho()
 	DtxSize
 		dtxMinSize{ 320, 256 },
 		dtxMaxSize{ 1280, 1024 };
-	DtxWindow *pDtxWindow{ mDtxApp.AddWindow("GameMath, 02Ortho", dtxRect, dtxMinSize, dtxMaxSize) };
+	DtxWindow *pDtxWindow{ mDtxApp.AddWindow("GameMath, 03ObjectToWorld", dtxRect, dtxMinSize, dtxMaxSize) };
 	pDtxWindow->OpenWindow();
 	mDtxApp.AddMesh(&mDtxCylinder);
 	mDtxCylinder.Render(pDtxWindow);
 }
 
-DtxApp *DtxOrtho::GetApp()
+DtxApp *DtxObjectToWorld::GetApp()
 {
     return &mDtxApp;
 }

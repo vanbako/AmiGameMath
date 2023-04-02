@@ -4,11 +4,11 @@
 #include "DtxApp.h"
 #include "DtxCylinder.h"
 
-class DtxOrtho final
+class DtxObjectToWorld final
 {
 public:
-    DtxOrtho();
-    ~DtxOrtho() = default;
+    DtxObjectToWorld();
+    ~DtxObjectToWorld() = default;
 
     DtxApp *GetApp();
 private:
