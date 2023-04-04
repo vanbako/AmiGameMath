@@ -86,7 +86,11 @@ Window *DtxWindow::GetWindow()
 void DtxWindow::Clear()
 {
     if (mpWindow != nullptr)
-        EraseRect(mpWindow->RPort, 0, 0, mpWindow->Width, mpWindow->Height);
+        EraseRect(
+            mpWindow->RPort,
+            mpWindow->BorderLeft, mpWindow->BorderTop,
+            mpWindow->Width - mpWindow->BorderRight, mpWindow->Height - mpWindow->BorderBottom
+        );
 }
 
 void DtxWindow::DtxAddGadget(const DtxRect& rect, const std::string& text)
