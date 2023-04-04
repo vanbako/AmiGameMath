@@ -80,14 +80,14 @@ void DtxMesh::MouseMove(bool mMouseLeftDown, bool mMouseRightDown, const DtxPoin
 {
 	if (mMouseLeftDown)
 	{
-		mRotation[0] += mouseDelta.mX * 0.001f;
-		mRotation[1] += mouseDelta.mY * 0.001f;
+		mRotation[0] += mouseDelta.mY * 0.005f;
+		mRotation[1] += mouseDelta.mX * 0.005f;
 		mHasMoved = true;
 	}
 	if (mMouseRightDown)
 	{
-		mTranslation[0] += mouseDelta.mX * 0.01f;
-		mTranslation[1] -= mouseDelta.mY * 0.01f;
+		mTranslation[0] += mouseDelta.mX;
+		mTranslation[1] -= mouseDelta.mY;
 		mHasMoved = true;
 	}
 }

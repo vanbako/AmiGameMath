@@ -94,9 +94,8 @@ void DtxApp::MouseMove(IntuiMessage *pIntuiMessage)
     if (!(mMouseLeftDown || mMouseRightDown) || mpMeshes.empty())
         return;
     DtxPoint mouseDelta{ WORD(pIntuiMessage->MouseX - mMousePos.mX), WORD(pIntuiMessage->MouseY - mMousePos.mY) };
-    //mMousePos.mX = WORD(pIntuiMessage->MouseX);
-    //mMousePos.mY = WORD(pIntuiMessage->MouseY);
-    //mouseDelta.mX = 1;
+    mMousePos.mX = WORD(pIntuiMessage->MouseX);
+    mMousePos.mY = WORD(pIntuiMessage->MouseY);
     mpMeshes[mActiveMesh]->MouseMove(mMouseLeftDown, mMouseRightDown, mouseDelta);
 }
 
