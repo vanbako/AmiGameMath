@@ -31,25 +31,43 @@ DtxWindow::~DtxWindow()
     UnlockPubScreen(nullptr, mpScreen);
 }
 
-Window *DtxWindow::OpenWindow()
+Window *DtxWindow::OpenWindow(bool getMouseMoveEvents)
 {
-	mpWindow = OpenWindowTags(
-        NULL,
-        WA_Left, mDtxRect.mLeft, WA_Top, mDtxRect.mTop,
-        WA_Width, mDtxRect.mWidth, WA_Height, mDtxRect.mHeight,
-        WA_MinWidth, mMinDtxSize.mWidth, WA_MinHeight, mMinDtxSize.mHeight,
-        WA_MaxWidth, mMaxDtxSize.mWidth, WA_MaxHeight, mMaxDtxSize.mHeight,
-        WA_Title, mTitle.c_str(),
-        WA_Gadgets, mpGadgetList,
-        WA_PubScreen, mpScreen,
-        WA_CloseGadget, TRUE,
-        WA_DepthGadget, TRUE,
-        WA_SizeGadget, TRUE,
-        WA_DragBar, TRUE,
-        WA_Activate, TRUE,
-        WA_IDCMP, IDCMP_CLOSEWINDOW | IDCMP_GADGETUP | IDCMP_GADGETDOWN,
-        TAG_DONE
-    );
+    ULONG idcmpFlags{ IDCMP_CLOSEWINDOW | IDCMP_GADGETUP | IDCMP_GADGETDOWN };
+    if (getMouseMoveEvents)
+    {
+        idcmpFlags |= IDCMP_MOUSEBUTTONS | IDCMP_MOUSEMOVE;
+    	mpWindow = OpenWindowTags(NULL,
+            WA_Left, mDtxRect.mLeft, WA_Top, mDtxRect.mTop,
+            WA_Width, mDtxRect.mWidth, WA_Height, mDtxRect.mHeight,
+            WA_MinWidth, mMinDtxSize.mWidth, WA_MinHeight, mMinDtxSize.mHeight,
+            WA_MaxWidth, mMaxDtxSize.mWidth, WA_MaxHeight, mMaxDtxSize.mHeight,
+            WA_Title, mTitle.c_str(),
+            WA_Gadgets, mpGadgetList,
+            WA_PubScreen, mpScreen,
+            WA_CloseGadget, TRUE, WA_DepthGadget, TRUE,
+            WA_SizeGadget, TRUE, WA_DragBar, TRUE,
+            WA_Activate, TRUE, WA_RMBTrap, TRUE,
+            WA_ReportMouse, TRUE,
+            WA_IDCMP, idcmpFlags,
+            TAG_DONE
+        );
+    }
+    else
+    	mpWindow = OpenWindowTags(NULL,
+            WA_Left, mDtxRect.mLeft, WA_Top, mDtxRect.mTop,
+            WA_Width, mDtxRect.mWidth, WA_Height, mDtxRect.mHeight,
+            WA_MinWidth, mMinDtxSize.mWidth, WA_MinHeight, mMinDtxSize.mHeight,
+            WA_MaxWidth, mMaxDtxSize.mWidth, WA_MaxHeight, mMaxDtxSize.mHeight,
+            WA_Title, mTitle.c_str(),
+            WA_Gadgets, mpGadgetList,
+            WA_PubScreen, mpScreen,
+            WA_CloseGadget, TRUE, WA_DepthGadget, TRUE,
+            WA_SizeGadget, TRUE, WA_DragBar, TRUE,
+            WA_Activate, TRUE, WA_RMBTrap, TRUE,
+            WA_IDCMP, idcmpFlags,
+            TAG_DONE
+        );
     return mpWindow;
 }
 
@@ -65,13 +83,19 @@ Window *DtxWindow::GetWindow()
     return mpWindow;
 }
 
+void DtxWindow::Clear()
+{
+    if (mpWindow != nullptr)
+        EraseRect(mpWindow->RPort, 0, 0, mpWindow->Width, mpWindow->Height);
+}
+
 void DtxWindow::DtxAddGadget(const DtxRect& rect, const std::string& text)
 {
-        mNewGadget.ng_LeftEdge = rect.mLeft;
-        mNewGadget.ng_TopEdge = rect.mTop;
-        mNewGadget.ng_Width = rect.mWidth;
-        mNewGadget.ng_Height = rect.mHeight;
-        mNewGadget.ng_GadgetText = text.c_str();
+    mNewGadget.ng_LeftEdge = rect.mLeft;
+    mNewGadget.ng_TopEdge = rect.mTop;
+    mNewGadget.ng_Width = rect.mWidth;
+    mNewGadget.ng_Height = rect.mHeight;
+    mNewGadget.ng_GadgetText = text.c_str();
 }
 
 Gadget *DtxWindow::AddButtonGadget(const DtxRect& rect, const std::string& text, bool disabled)

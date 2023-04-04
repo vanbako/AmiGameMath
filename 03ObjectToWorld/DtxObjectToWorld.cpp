@@ -10,7 +10,7 @@ DtxObjectToWorld::DtxObjectToWorld()
 	DtxSize
 		dtxMinSize{ 320, 256 },
 		dtxMaxSize{ 1280, 1024 };
-	DtxWindow *pDtxWindow{ mDtxApp.AddWindow("GameMath, 03ObjectToWorld", dtxRect, dtxMinSize, dtxMaxSize) };
+	DtxWindow *pDtxWindow{ mDtxApp.AddWindow("GameMath, 03 ObjectToWorld", dtxRect, dtxMinSize, dtxMaxSize) };
 	pDtxWindow->OpenWindow();
 	mDtxApp.AddMesh(&mDtxCylinder);
 	mDtxCylinder.Render(pDtxWindow);

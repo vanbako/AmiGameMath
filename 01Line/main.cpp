@@ -14,7 +14,7 @@ int main(int argc, char **argv)
 	DtxSize
 		dtxMinSize{ 160, 128 },
 		dtxMaxSize{ 1280, 1024 };
-	DtxWindow *pDtxWindow{ dtxApp.AddWindow("GameMath, 01Line", dtxRect, dtxMinSize, dtxMaxSize) };
+	DtxWindow *pDtxWindow{ dtxApp.AddWindow("GameMath, 01 Line", dtxRect, dtxMinSize, dtxMaxSize) };
 	pDtxWindow->OpenWindow();
 	std::vector<DtxPoint> dtxTriangle{
 		{ 300, 50 },
