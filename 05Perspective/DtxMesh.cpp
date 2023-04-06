@@ -66,29 +66,21 @@ void DtxMesh::Render(DtxWindow* pDtxWindow, DtxCamera* pDtxCamera)
 
 		std::array<float, 16> wvp{};
 		wvp = MatrixMultiply(pDtxCamera->GetView(), mObjectToWorldMatrix);
-		std::array<float, 16> proj{ pDtxCamera->GetProj() };
-		wvp = MatrixMultiply(proj, wvp);
+		wvp = MatrixMultiply(pDtxCamera->GetProj(), wvp);
 
-		std::array<float, 16> viewportMatrix{
-			1280.f / 2.f, 0.f, 0.f, 1280.f / 2.f,
-			0.f, -960.f / 2.f, 0.f, 960.f / 2.f,
-			0.f, 0.f, 0.5f, 0.5f,
-			0.f, 0.f, 0.f, 1.f };
-
+		float
+			windowWidth{ float(pDtxWindow->GetWindow()->Width) },
+			windowHeight{ float(pDtxWindow->GetWindow()->Height) };
 		mTransformedVertices.clear();
 		mTransformedVertices.reserve(mVertices.size());
 		for (auto& vertex : mVertices)
 		{
 			std::array<float, 4> v{ MatrixMultiply(wvp, vertex) };
-			//float w{ proj[12] * v[0] + proj[13] * v[1] + proj[14] * v[2] + proj[15] };
-			if (v[3] == 0.f)
-				v[3] = 1.f;
 			v[0] /= v[3];
 			v[1] /= v[3];
 			v[2] /= v[3];
-			v[0] *= 1280.f * 20.f;
-			v[1] *= 960.f * 20.f;
-			//v = MatrixMultiply(viewportMatrix, v);
+			v[0] *= windowWidth * 10.f;
+			v[1] *= windowHeight * 10.f;
 			mTransformedVertices.emplace_back(v);
 		}
 	}
@@ -120,10 +112,12 @@ void DtxMesh::MouseMove(bool mMouseLeftDown, bool mMouseRightDown, const DtxPoin
 void DtxMesh::RenderTriangle(DtxWindow *pDtxWindow, const std::array<float, 4>& v1, const std::array<float, 4>& v2, const std::array<float, 4>& v3)
 {
 	float
-		mX{ 640.f },
-		mY{ 480.f },
-		min{ -32767.f },
-		max{ 32767.f };
+		mX{ pDtxWindow->GetWindow()->Width / 2.f },
+		mY{ pDtxWindow->GetWindow()->Height / 2.f },
+		//min{ -32768.f },
+		//max{ 32767.f };
+		min{ -4096.f },
+		max{ 4095.f };
 	float
 		x[]{ v1[0] + mX, v2[0] + mX, v3[0] + mX },
 		y[]{ mY - v1[1], mY - v2[1], mY - v3[1] };

@@ -11,6 +11,7 @@ public:
 	std::array<float, 16>& GetViewInv();
 	std::array<float, 16>& GetProj();
 	void CalcViewProj();
+	void SetAspectRatio(WORD width, WORD height);
 private:
 	std::array<float, 16>
 		mView,

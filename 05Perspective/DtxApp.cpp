@@ -69,6 +69,9 @@ void DtxApp::Loop()
                         case IDCMP_CLOSEWINDOW:
                             isDone = true;
                             break;
+                        case IDCMP_NEWSIZE:
+                            mDtxCamera.SetAspectRatio(pDtxWindow->GetWindow()->Width, pDtxWindow->GetWindow()->Height);
+                            break;
                         case IDCMP_MOUSEMOVE:
                             MouseMove(pIntuiMessage);
                             break;

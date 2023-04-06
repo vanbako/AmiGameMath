@@ -33,7 +33,7 @@ DtxWindow::~DtxWindow()
 
 Window *DtxWindow::OpenWindow(bool getMouseMoveEvents)
 {
-    ULONG idcmpFlags{ IDCMP_CLOSEWINDOW | IDCMP_GADGETUP | IDCMP_GADGETDOWN };
+    ULONG idcmpFlags{ IDCMP_CLOSEWINDOW | IDCMP_NEWSIZE | IDCMP_GADGETUP | IDCMP_GADGETDOWN };
     if (getMouseMoveEvents)
     {
         idcmpFlags |= IDCMP_MOUSEBUTTONS | IDCMP_MOUSEMOVE;
