@@ -89,7 +89,6 @@ void DtxApp::Render()
     for (DtxMesh *pMesh : mpMeshes)
         pMesh->Render(pDtxWindow);
     RefreshWindowFrame(pDtxWindow->GetWindow());
-
 }
 
 void DtxApp::MouseMove(IntuiMessage *pIntuiMessage)

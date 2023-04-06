@@ -7,6 +7,7 @@
 DtxApp::DtxApp()
     : mpDtxWindows{}
     , mpMeshes{}
+    , mDtxCamera{}
     , mMouseLeftDown{ false }
     , mMouseRightDown{ false }
     , mMousePos{ 0, 0 }
@@ -87,7 +88,7 @@ void DtxApp::Render()
     DtxWindow *pDtxWindow{ mpDtxWindows[0] };
     pDtxWindow->Clear();
     for (DtxMesh *pMesh : mpMeshes)
-        pMesh->Render(pDtxWindow);
+        pMesh->Render(pDtxWindow, &mDtxCamera);
     RefreshWindowFrame(pDtxWindow->GetWindow());
 }
 

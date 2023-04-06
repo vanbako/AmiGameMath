@@ -6,6 +6,7 @@
 #include <vector>
 
 class DtxWindow;
+class DtxCamera;
 
 class DtxMesh
 {
@@ -13,7 +14,7 @@ public:
 	DtxMesh();
 	virtual ~DtxMesh() = default;
 
-	virtual void Render(DtxWindow* pDtxWindow);
+	virtual void Render(DtxWindow* pDtxWindow, DtxCamera* pDtxCamera);
 	void MouseMove(bool mMouseLeftDown, bool mMouseRightDown, const DtxPoint& mouseDelta);
 protected:
 	std::vector<std::array<float, 4>> mVertices;

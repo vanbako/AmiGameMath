@@ -1,4 +1,5 @@
 #include "DtxMesh.h"
+#include "DtxCamera.h"
 #include "../Shared/DtxWindow.h"
 #include <cstring>
 #include <cmath>
@@ -22,7 +23,7 @@ DtxMesh::DtxMesh()
 	, mObjectToWorldMatrix{}
 {}
 
-void DtxMesh::Render(DtxWindow* pDtxWindow)
+void DtxMesh::Render(DtxWindow* pDtxWindow, DtxCamera* pDtxCamera)
 {
 	if (mHasMoved)
 	{
@@ -62,10 +63,34 @@ void DtxMesh::Render(DtxWindow* pDtxWindow)
 		r[7] = mTranslation[1];
 		r[11] = mTranslation[2];
 		mObjectToWorldMatrix = MatrixMultiply(r, mObjectToWorldMatrix);
+
+		std::array<float, 16> wvp{};
+		wvp = MatrixMultiply(pDtxCamera->GetView(), mObjectToWorldMatrix);
+		std::array<float, 16> proj{ pDtxCamera->GetProj() };
+		wvp = MatrixMultiply(proj, wvp);
+
+		std::array<float, 16> viewportMatrix{
+			1280.f / 2.f, 0.f, 0.f, 1280.f / 2.f,
+			0.f, -960.f / 2.f, 0.f, 960.f / 2.f,
+			0.f, 0.f, 0.5f, 0.5f,
+			0.f, 0.f, 0.f, 1.f };
+
 		mTransformedVertices.clear();
 		mTransformedVertices.reserve(mVertices.size());
 		for (auto& vertex : mVertices)
-			mTransformedVertices.emplace_back(MatrixMultiply(mObjectToWorldMatrix, vertex));
+		{
+			std::array<float, 4> v{ MatrixMultiply(wvp, vertex) };
+			//float w{ proj[12] * v[0] + proj[13] * v[1] + proj[14] * v[2] + proj[15] };
+			if (v[3] == 0.f)
+				v[3] = 1.f;
+			v[0] /= v[3];
+			v[1] /= v[3];
+			v[2] /= v[3];
+			v[0] *= 1280.f * 20.f;
+			v[1] *= 960.f * 20.f;
+			//v = MatrixMultiply(viewportMatrix, v);
+			mTransformedVertices.emplace_back(v);
+		}
 	}
 	for (auto& triangle : mTriangles)
 		RenderTriangle(
@@ -130,7 +155,7 @@ std::array<float, 16> DtxMesh::MatrixMultiply(const std::array<float, 16>& matri
 	for (ULONG row{ 0 }; row < 4; ++row)
 		for (ULONG col{ 0 }; col < 4; ++col)
 		{
-			float sum{ 0 };
+			float sum{ 0.f };
 			for (ULONG i{ 0 }; i < 4; ++i)
 				sum += matrix1[row * 4 + i] * matrix2[i * 4 + col];
 			result[row * 4 + col] = sum;

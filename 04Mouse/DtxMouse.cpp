@@ -13,7 +13,6 @@ DtxMouse::DtxMouse()
 	DtxWindow *pDtxWindow{ mDtxApp.AddWindow("GameMath, 04 Mouse", dtxRect, dtxMinSize, dtxMaxSize) };
 	pDtxWindow->OpenWindow(true);
 	mDtxApp.AddMesh(&mDtxCylinder);
-	mDtxCylinder.Render(pDtxWindow);
 }
 
 DtxApp *DtxMouse::GetApp()

@@ -15,7 +15,7 @@ DtxMesh::DtxMesh()
 	, mTriangles{}
 	, mScale{ 1.f }
 	, mTranslation{ 0.f, 0.f, 0.f }
-	, mRotation{ 0.f, 0.f, 3.14159263f / 4.f }
+	, mRotation{ 0.f, 0.f, 3.14159265f / 4.f }
 	, mHasMoved{ true }
 	, mTransformedVertices{}
 	, mObjectToWorldMatrix{}
