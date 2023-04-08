@@ -6,7 +6,7 @@
 class DtxCamera final
 {
 public:
-	DtxCamera();
+	DtxCamera(WORD width, WORD height);
 	std::array<float, 16>& GetView();
 	std::array<float, 16>& GetViewInv();
 	std::array<float, 16>& GetProj();

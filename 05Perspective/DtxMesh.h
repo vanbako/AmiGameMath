@@ -14,7 +14,7 @@ public:
 	DtxMesh();
 	virtual ~DtxMesh() = default;
 
-	virtual void Render(DtxWindow* pDtxWindow, DtxCamera* pDtxCamera);
+	virtual void Render(DtxWindow* pDtxWindow);
 	void MouseMove(bool mMouseLeftDown, bool mMouseRightDown, const DtxPoint& mouseDelta);
 protected:
 	std::vector<std::array<float, 4>> mVertices;

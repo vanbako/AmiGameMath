@@ -1,5 +1,4 @@
 #include "DtxMesh.h"
-#include "DtxCamera.h"
 #include "../Shared/DtxWindow.h"
 #include <cstring>
 #include <cmath>
@@ -23,7 +22,7 @@ DtxMesh::DtxMesh()
 	, mObjectToWorldMatrix{}
 {}
 
-void DtxMesh::Render(DtxWindow* pDtxWindow, DtxCamera* pDtxCamera)
+void DtxMesh::Render(DtxWindow* pDtxWindow)
 {
 	if (mHasMoved)
 	{
@@ -65,6 +64,7 @@ void DtxMesh::Render(DtxWindow* pDtxWindow, DtxCamera* pDtxCamera)
 		mObjectToWorldMatrix = MatrixMultiply(r, mObjectToWorldMatrix);
 
 		std::array<float, 16> wvp{};
+		DtxCamera* pDtxCamera{ pDtxWindow->GetCamera() };
 		wvp = MatrixMultiply(pDtxCamera->GetView(), mObjectToWorldMatrix);
 		wvp = MatrixMultiply(pDtxCamera->GetProj(), wvp);
 

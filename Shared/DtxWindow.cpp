@@ -13,6 +13,7 @@ DtxWindow::DtxWindow(const std::string& title, const DtxRect& dtxRect, const Dtx
     , mpGadgetList{ nullptr }
     , mpGadget{ nullptr }
     , mNewGadget{}
+    , mDtxCamera{ WORD(dtxRect.mWidth), WORD(dtxRect.mHeight) }
 {
     mTextAttr = TextAttr{ mFontName, 11, 0, 0 };
     Screen *mpScreen{ LockPubScreen(nullptr) };
@@ -127,4 +128,9 @@ void DtxWindow::DrawPolyLine(const std::vector<DtxPoint>& dtxTriangle)
     Move(mpWindow->RPort, dtxTriangle[0].mX, dtxTriangle[0].mY);
     PolyDraw(mpWindow->RPort, dtxTriangle.size() - 1, (WORD*)&dtxTriangle[1]);
     Draw(mpWindow->RPort, dtxTriangle[0].mX, dtxTriangle[0].mY);
+}
+
+DtxCamera* DtxWindow::GetCamera()
+{
+    return &mDtxCamera;
 }

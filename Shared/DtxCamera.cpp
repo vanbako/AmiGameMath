@@ -1,7 +1,7 @@
 #include "DtxCamera.h"
 #include <cmath>
 
-DtxCamera::DtxCamera()
+DtxCamera::DtxCamera(WORD width, WORD height)
 	: mView{}
 	, mViewInv{}
 	, mProj{}
@@ -10,7 +10,7 @@ DtxCamera::DtxCamera()
 	, mUp{ 0.f, 1.f, 0.f, 0.f }
 	, mRight{ 1.f, 0.f, 0.f, 0.f }
 	, mFov{ 3.14159265f / 3.f }
-	, mAspectRatio{ 16.f / 10.f }
+	, mAspectRatio{ static_cast<float>(width) / static_cast<float>(height) }
 	, mNear{ 50.f }
 	, mFar{ 5000.f }
 {
@@ -41,12 +41,12 @@ void DtxCamera::CalcViewProj()
 		0.f, 0.f, 0.f, 1.f
 	};
 	mView = Inverse(mViewInv);
-    float mFovTan{ std::tan(mFov / 2.f) };
+    float fovTan{ std::tan(mFov / 2.f) };
 	mProj = std::array<float, 16>{
-		1.f / (mAspectRatio * mFovTan), 0.f, 0.f, 0.f,
-		0.f, 1.f / mFovTan, 0.f, 0.f,
+		1.f / (mAspectRatio * fovTan), 0.f, 0.f, 0.f,
+		0.f, 1.f / fovTan, 0.f, 0.f,
 		0.f, 0.f, mFar / (mFar - mNear), 1.f,
-		0.f, 0.f, -mNear * mFar / (mFar - mNear), 0.f
+		0.f, 0.f, -(mNear * mFar) / (mFar - mNear), 0.f
 	};
 }
 

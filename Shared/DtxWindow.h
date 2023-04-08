@@ -5,6 +5,7 @@
 #include "DtxRect.h"
 #include "DtxSize.h"
 #include "DtxPoint.h"
+#include "DtxCamera.h"
 #include <clib/intuition_protos.h>
 #include <clib/gadtools_protos.h>
 #include <clib/graphics_protos.h>
@@ -21,6 +22,7 @@ public:
 	void DtxAddGadget(const DtxRect& rect, const std::string& text);
 	Gadget *AddButtonGadget(const DtxRect& rect, const std::string& text, bool disabled = false);
 	void DrawPolyLine(const std::vector<DtxPoint>& dtxTriangle);
+	DtxCamera* GetCamera();
 private:
 	Window *mpWindow;
 	const std::string mTitle;
@@ -34,4 +36,5 @@ private:
 	Gadget *mpGadgetList;
 	Gadget *mpGadget;
 	NewGadget mNewGadget;
+	DtxCamera mDtxCamera;
 };

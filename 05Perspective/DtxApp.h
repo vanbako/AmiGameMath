@@ -2,7 +2,6 @@
 
 #include <vector>
 #include <string>
-#include "DtxCamera.h"
 #include "../Shared/DtxRect.h"
 #include "../Shared/DtxSize.h"
 #include "../Shared/DtxPoint.h"
@@ -25,7 +24,6 @@ public:
 private:
 	std::vector<DtxWindow *> mpDtxWindows;
     std::vector<DtxMesh *> mpMeshes;
-    DtxCamera mDtxCamera;
     bool mMouseLeftDown;
     bool mMouseRightDown;
     DtxPoint mMousePos;

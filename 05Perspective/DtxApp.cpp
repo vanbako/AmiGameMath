@@ -7,7 +7,6 @@
 DtxApp::DtxApp()
     : mpDtxWindows{}
     , mpMeshes{}
-    , mDtxCamera{}
     , mMouseLeftDown{ false }
     , mMouseRightDown{ false }
     , mMousePos{ 0, 0 }
@@ -32,7 +31,7 @@ DtxWindow *DtxApp::AddWindow(const std::string& title, const DtxRect& dtxRect)
 {
     DtxSize
         dtxMinSize{ 320, 240 },
-        dtxMaxSize{ 640, 480 };
+        dtxMaxSize{ 1280, 960 };
     return AddWindow(title, dtxRect, dtxMinSize, dtxMaxSize);
 }
 
@@ -70,7 +69,7 @@ void DtxApp::Loop()
                             isDone = true;
                             break;
                         case IDCMP_NEWSIZE:
-                            mDtxCamera.SetAspectRatio(pDtxWindow->GetWindow()->Width, pDtxWindow->GetWindow()->Height);
+                            pDtxWindow->GetCamera()->SetAspectRatio(pDtxWindow->GetWindow()->Width, pDtxWindow->GetWindow()->Height);
                             break;
                         case IDCMP_MOUSEMOVE:
                             MouseMove(pIntuiMessage);
@@ -91,7 +90,7 @@ void DtxApp::Render()
     DtxWindow *pDtxWindow{ mpDtxWindows[0] };
     pDtxWindow->Clear();
     for (DtxMesh *pMesh : mpMeshes)
-        pMesh->Render(pDtxWindow, &mDtxCamera);
+        pMesh->Render(pDtxWindow);
     RefreshWindowFrame(pDtxWindow->GetWindow());
 }
 
