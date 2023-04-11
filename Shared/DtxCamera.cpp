@@ -11,7 +11,7 @@ DtxCamera::DtxCamera(WORD width, WORD height)
 	, mRight{ 1.f, 0.f, 0.f, 0.f }
 	, mFov{ 3.14159265f / 3.f }
 	, mAspectRatio{ static_cast<float>(width) / static_cast<float>(height) }
-	, mNear{ 50.f }
+	, mNear{ 2.f }
 	, mFar{ 5000.f }
 {
 	CalcViewProj();

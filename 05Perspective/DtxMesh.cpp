@@ -79,8 +79,8 @@ void DtxMesh::Render(DtxWindow* pDtxWindow)
 			v[0] /= v[3];
 			v[1] /= v[3];
 			v[2] /= v[3];
-			v[0] *= windowWidth * 10.f;
-			v[1] *= windowHeight * 10.f;
+			v[0] *= windowWidth;
+			v[1] *= windowHeight;
 			mTransformedVertices.emplace_back(v);
 		}
 	}
